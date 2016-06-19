@@ -12,6 +12,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
+import static de.robv.android.xposed.XposedBridge.log;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
@@ -41,8 +42,10 @@ public class Main implements IXposedHookLoadPackage {
                             if (null != param.args[1]) {
                                 Field messageContentFileld = param.args[1].getClass().getSuperclass().getSuperclass().getDeclaredField("mMessageContent");
                                 String messageContent = messageContentFileld.get(param.args[1]).toString();
-                                if (messageContent.startsWith("{\"tp\":902")) {
-                                    JSONObject jsonObject = new JSONObject(messageContent);
+                                log(messageContent);
+                                JSONObject jsonObject = new JSONObject(messageContent);
+                                int tp = jsonObject.optInt("tp", 0);
+                                if (901 == tp || 902 == tp) {
                                     String ext = jsonObject.getJSONArray("multi").getJSONObject(0).getString("ext");
                                     ext = ext.replace("\\", "").replace("\"{", "{").replace("}\"", "}");
                                     jsonObject = new JSONObject(ext);
