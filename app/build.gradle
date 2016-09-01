@@ -23,8 +23,8 @@ android {
         applicationId "me.veryyoung.dingding.luckymoney"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 8
-        versionName "1.0.1"
+        versionCode 9
+        versionName "1.0.2"
     }
 
     buildTypes {
@@ -39,5 +39,6 @@ android {
 
 dependencies {
     provided files('libs/XposedBridgeApi-30.jar')
+    compile 'com.android.support:appcompat-v7:23.1.1'
 }
 

@@ -1,0 +1,57 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/setting">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="open"
+            android:title="@string/pref_open" />
+
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="open"
+            android:key="not_self"
+            android:title="@string/pre_not_self" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="open"
+            android:key="not_whisper"
+            android:title="@string/pref_whisper" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="open"
+            android:key="delay"
+            android:title="@string/pref_delay" />
+
+
+        <me.veryyoung.dingding.luckymoney.SeekBarPreference
+            pref_kind="delay_time"
+            android:defaultValue="true"
+            android:dependency="delay"
+            android:title="@string/pref_delay_time" />
+
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="quick_open"
+            android:title="@string/quick_open" />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/about">
+        <Preference
+            android:key="author"
+            android:summary="veryyoung"
+            android:title="@string/author" />
+        <Preference
+            android:key="donate_alipay"
+            android:title="@string/alipay_donate" />
+        <Preference
+            android:key="donate_wechat"
+            android:title="@string/wechat_donate" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

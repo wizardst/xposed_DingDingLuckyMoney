@@ -33,16 +33,19 @@ public class Main implements IXposedHookLoadPackage {
     public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
         if (lpparam.packageName.equals(DINGDING_PACKAGE_NAME)) {
 
-            final Class<?> message = findClass("com.alibaba.wukong.im.Message", lpparam.classLoader);
-
-            findAndHookMethod(MAP_CLASS_NAME, lpparam.classLoader, MAP_FUNCTION_NAME, int.class, message, new XC_MethodHook() {
+            findAndHookMethod(MAP_CLASS_NAME, lpparam.classLoader, MAP_FUNCTION_NAME, int.class, "com.alibaba.wukong.im.Message", boolean.class, new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-
+                            if (!PreferencesUtils.open()) {
+                                return;
+                            }
                             if (null != param.args[1]) {
+                                log(param.args[0].toString());
+                                log(param.args[2].toString());
                                 Field messageContentFileld = param.args[1].getClass().getSuperclass().getSuperclass().getDeclaredField("mMessageContent");
                                 String messageContent = messageContentFileld.get(param.args[1]).toString();
                                 log(messageContent);
+
                                 JSONObject jsonObject = new JSONObject(messageContent);
                                 int tp = jsonObject.optInt("tp", 0);
                                 if (901 == tp || 902 == tp) {
