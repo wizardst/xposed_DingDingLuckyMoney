@@ -11,13 +11,13 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
-import static de.robv.android.xposed.XposedBridge.log;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findConstructorBestMatch;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
+import static java.lang.Thread.sleep;
 
 
 public class Main implements IXposedHookLoadPackage {
@@ -39,11 +39,8 @@ public class Main implements IXposedHookLoadPackage {
                                 return;
                             }
                             if (null != param.args[1]) {
-                                log(param.args[0].toString());
-                                log(param.args[2].toString());
                                 Field messageContentFileld = param.args[1].getClass().getSuperclass().getSuperclass().getDeclaredField("mMessageContent");
                                 String messageContent = messageContentFileld.get(param.args[1]).toString();
-                                log(messageContent);
 
                                 JSONObject jsonObject = new JSONObject(messageContent);
                                 int tp = jsonObject.optInt("tp", 0);
@@ -59,6 +56,9 @@ public class Main implements IXposedHookLoadPackage {
 
                                     Object redEnvelopPickIService = callStaticMethod(findClass("crh", lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader));
 
+                                    if (PreferencesUtils.delay()) {
+                                        sleep(PreferencesUtils.delayTime());
+                                    }
                                     callMethod(redEnvelopPickIService, "pickRedEnvelopCluster", sender, clusterId, redPacketsRpc$9);
                                 }
                             }

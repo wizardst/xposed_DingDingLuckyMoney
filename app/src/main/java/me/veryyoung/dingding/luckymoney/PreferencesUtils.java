@@ -21,17 +21,6 @@ public class PreferencesUtils {
         return getInstance().getBoolean("open", false);
     }
 
-    public static boolean notSelf() {
-        return getInstance().getBoolean("not_self", false);
-    }
-
-    public static boolean notWhisper() {
-        return getInstance().getBoolean("not_whisper", false);
-    }
-
-    public static String notContains() {
-        return getInstance().getString("not_contains", "");
-    }
 
     public static boolean delay() {
         return getInstance().getBoolean("delay", false);
