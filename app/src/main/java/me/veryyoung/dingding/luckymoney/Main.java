@@ -1,7 +1,6 @@
 package me.veryyoung.dingding.luckymoney;
 
-import android.view.MotionEvent;
-import android.view.View;
+import android.widget.ImageButton;
 
 import org.json.JSONObject;
 
@@ -16,7 +15,7 @@ import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findConstructorBestMatch;
-import static de.robv.android.xposed.XposedHelpers.getObjectField;
+import static de.robv.android.xposed.XposedHelpers.findFirstFieldByExactType;
 import static java.lang.Thread.sleep;
 
 
@@ -70,14 +69,12 @@ public class Main implements IXposedHookLoadPackage {
             findAndHookMethod("com.alibaba.android.dingtalk.redpackets.activities.PickRedPacketsActivity", lpparam.classLoader, MAP_FUNCTION_NAME, new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                    View mView = (View) getObjectField(param.thisObject, "h");
-                    mView.callOnClick();
-                    mView.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            return false;
+                    if (PreferencesUtils.quickOpen()) {
+                        ImageButton imageButton = (ImageButton) findFirstFieldByExactType(param.thisObject.getClass(), ImageButton.class).get(param.thisObject);
+                        if (imageButton.isClickable()) {
+                            imageButton.performClick();
                         }
-                    });
+                    }
                 }
             });
 
