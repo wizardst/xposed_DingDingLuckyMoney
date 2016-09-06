@@ -5,7 +5,6 @@ import android.view.View;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -55,10 +54,12 @@ public class Main implements IXposedHookLoadPackage {
                                     Long sender = jsonObject.getLong("sid");
                                     String clusterId = jsonObject.getString("clusterid");
 
-                                    Object RedPacketsRpc = callStaticMethod(findClass("wl", lpparam.classLoader), "a");
-                                    Constructor constructor = findConstructorBestMatch(findClass("wl$9", lpparam.classLoader), RedPacketsRpc.getClass(), findClass("aae", lpparam.classLoader));
+                                    Object redPacketsRpc = callStaticMethod(findClass("zy", lpparam.classLoader), "a");
+                                    Object redPacketsRpc$9 = findConstructorBestMatch(findClass("zy$9", lpparam.classLoader), redPacketsRpc.getClass(), findClass("aeb", lpparam.classLoader)).newInstance(redPacketsRpc, null);
 
-                                    callMethod(callStaticMethod(findClass("cdk", lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader)), "pickRedEnvelopCluster", sender, clusterId, constructor.newInstance(RedPacketsRpc, null));
+                                    Object redEnvelopPickIService = callStaticMethod(findClass("crh", lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader));
+
+                                    callMethod(redEnvelopPickIService, "pickRedEnvelopCluster", sender, clusterId, redPacketsRpc$9);
                                 }
                             }
                         }
