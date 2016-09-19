@@ -31,15 +31,15 @@ public class Main implements IXposedHookLoadPackage {
     public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
         if (lpparam.packageName.equals(DINGDING_PACKAGE_NAME)) {
 
-            findAndHookMethod(MAP_CLASS_NAME, lpparam.classLoader, MAP_FUNCTION_NAME, int.class, "com.alibaba.wukong.im.Message", boolean.class, new XC_MethodHook() {
+            findAndHookMethod(MAP_CLASS_NAME, lpparam.classLoader, MAP_FUNCTION_NAME, "com.alibaba.wukong.im.Message", new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                             if (!PreferencesUtils.open()) {
                                 return;
                             }
-                            if (null != param.args[1]) {
-                                Field messageContentFileld = param.args[1].getClass().getSuperclass().getSuperclass().getDeclaredField("mMessageContent");
-                                String messageContent = messageContentFileld.get(param.args[1]).toString();
+                            if (null != param.args[0]) {
+                                Field messageContentFileld = param.args[0].getClass().getSuperclass().getSuperclass().getDeclaredField("mMessageContent");
+                                String messageContent = messageContentFileld.get(param.args[0]).toString();
 
                                 JSONObject jsonObject = new JSONObject(messageContent);
                                 int tp = jsonObject.optInt("tp", 0);
@@ -50,10 +50,10 @@ public class Main implements IXposedHookLoadPackage {
                                     Long sender = jsonObject.getLong("sid");
                                     String clusterId = jsonObject.getString("clusterid");
 
-                                    Object redPacketsRpc = callStaticMethod(findClass("zy", lpparam.classLoader), "a");
-                                    Object redPacketsRpc$9 = findConstructorBestMatch(findClass("zy$9", lpparam.classLoader), redPacketsRpc.getClass(), findClass("aeb", lpparam.classLoader)).newInstance(redPacketsRpc, null);
+                                    Object redPacketsRpc = callStaticMethod(findClass("abc", lpparam.classLoader), "a");
+                                    Object redPacketsRpc$9 = findConstructorBestMatch(findClass("abc$9", lpparam.classLoader), redPacketsRpc.getClass(), findClass("afm", lpparam.classLoader)).newInstance(redPacketsRpc, null);
 
-                                    Object redEnvelopPickIService = callStaticMethod(findClass("crh", lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader));
+                                    Object redEnvelopPickIService = callStaticMethod(findClass("cvs", lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader));
 
                                     if (PreferencesUtils.delay()) {
                                         sleep(PreferencesUtils.delayTime());
@@ -66,7 +66,7 @@ public class Main implements IXposedHookLoadPackage {
             );
 
 
-            findAndHookMethod("com.alibaba.android.dingtalk.redpackets.activities.PickRedPacketsActivity", lpparam.classLoader, MAP_FUNCTION_NAME, new XC_MethodHook() {
+            findAndHookMethod("com.alibaba.android.dingtalk.redpackets.activities.PickRedPacketsActivity", lpparam.classLoader, "a", new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     if (PreferencesUtils.quickOpen()) {
