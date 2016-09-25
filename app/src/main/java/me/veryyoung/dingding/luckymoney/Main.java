@@ -24,7 +24,7 @@ public class Main implements IXposedHookLoadPackage {
 
     private static final String DINGDING_PACKAGE_NAME = "com.alibaba.android.rimet";
 
-    private static final String CONVERSATION_CHANGE_MAID_CLASS_NAME = "anv";
+    private static final String CONVERSATION_CHANGE_MAID_CLASS_NAME = "anx";
 
 
     @Override
@@ -54,7 +54,7 @@ public class Main implements IXposedHookLoadPackage {
                             Object redPacketsRpc = callStaticMethod(findClass("abc", lpparam.classLoader), "a");
                             Object redPacketsRpc$9 = findConstructorBestMatch(findClass("abc$9", lpparam.classLoader), redPacketsRpc.getClass(), findClass("afm", lpparam.classLoader)).newInstance(redPacketsRpc, null);
 
-                            Object redEnvelopPickIService = callStaticMethod(findClass("cvs", lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader));
+                            Object redEnvelopPickIService = callStaticMethod(findClass("cvx", lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader));
 
                             if (PreferencesUtils.delay()) {
                                 sleep(PreferencesUtils.delayTime());
