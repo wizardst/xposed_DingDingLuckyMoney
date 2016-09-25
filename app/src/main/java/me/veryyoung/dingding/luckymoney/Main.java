@@ -1,5 +1,7 @@
 package me.veryyoung.dingding.luckymoney;
 
+import android.content.Context;
+import android.text.TextUtils;
 import android.widget.ImageButton;
 
 import org.json.JSONObject;
@@ -10,6 +12,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
+import static de.robv.android.xposed.XposedBridge.log;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
@@ -24,14 +27,21 @@ public class Main implements IXposedHookLoadPackage {
 
     private static final String DINGDING_PACKAGE_NAME = "com.alibaba.android.rimet";
 
-    private static final String CONVERSATION_CHANGE_MAID_CLASS_NAME = "anx";
+    private static String dingdingVersion = "";
 
 
     @Override
     public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
         if (lpparam.packageName.equals(DINGDING_PACKAGE_NAME)) {
+            if (TextUtils.isEmpty(dingdingVersion)) {
+                Context context = (Context) callMethod(callStaticMethod(findClass("android.app.ActivityThread", null), "currentActivityThread", new Object[0]), "getSystemContext", new Object[0]);
+                String versionName = context.getPackageManager().getPackageInfo(lpparam.packageName, 0).versionName;
+                log("Found dingding version:" + versionName);
+                dingdingVersion = versionName;
+                VersionParam.init(versionName);
+            }
 
-            findAndHookMethod(CONVERSATION_CHANGE_MAID_CLASS_NAME, lpparam.classLoader, "onLatestMessageChanged", List.class, new XC_MethodHook() {
+            findAndHookMethod(VersionParam.CONVERSATION_CHANGE_MAID_CLASS_NAME, lpparam.classLoader, "onLatestMessageChanged", List.class, new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     if (!PreferencesUtils.open()) {
@@ -54,7 +64,7 @@ public class Main implements IXposedHookLoadPackage {
                             Object redPacketsRpc = callStaticMethod(findClass("abc", lpparam.classLoader), "a");
                             Object redPacketsRpc$9 = findConstructorBestMatch(findClass("abc$9", lpparam.classLoader), redPacketsRpc.getClass(), findClass("afm", lpparam.classLoader)).newInstance(redPacketsRpc, null);
 
-                            Object redEnvelopPickIService = callStaticMethod(findClass("cvx", lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader));
+                            Object redEnvelopPickIService = callStaticMethod(findClass(VersionParam.ServiceFactoryClass, lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader));
 
                             if (PreferencesUtils.delay()) {
                                 sleep(PreferencesUtils.delayTime());
