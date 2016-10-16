@@ -5,23 +5,36 @@ package me.veryyoung.dingding.luckymoney;
  */
 public class VersionParam {
 
-    public static String CONVERSATION_CHANGE_MAID_CLASS_NAME = "anx";
-
-    public static String ServiceFactoryClass = "cvx";
+    public static String ApiEventListenerClass = "afn";
+    public static String ConversationChangeMaidClassName = "any";
+    public static String ServiceFactoryClass = "cwa";
+    public static String RedPacketsRpcClassName = "abd";
 
     public static void init(String version) {
         switch (version) {
             case "3.0.0":
-                CONVERSATION_CHANGE_MAID_CLASS_NAME = "anv";
+                ApiEventListenerClass = "afm";
+                ConversationChangeMaidClassName = "anv";
                 ServiceFactoryClass = "cvs";
+                RedPacketsRpcClassName = "abc";
                 break;
             case "3.0.1":
-                CONVERSATION_CHANGE_MAID_CLASS_NAME = "anx";
+                ApiEventListenerClass = "afm";
+                ConversationChangeMaidClassName = "anx";
                 ServiceFactoryClass = "cvx";
+                RedPacketsRpcClassName = "abc";
+                break;
+            case "3.0.3":
+                ApiEventListenerClass = "afn";
+                ConversationChangeMaidClassName = "any";
+                ServiceFactoryClass = "cwa";
+                RedPacketsRpcClassName = "abd";
                 break;
             default:
-                CONVERSATION_CHANGE_MAID_CLASS_NAME = "anx";
-                ServiceFactoryClass = "cvx";
+                ApiEventListenerClass = "afn";
+                ConversationChangeMaidClassName = "any";
+                ServiceFactoryClass = "cwa";
+                RedPacketsRpcClassName = "abd";
         }
     }
 
