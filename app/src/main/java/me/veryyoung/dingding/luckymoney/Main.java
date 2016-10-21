@@ -87,6 +87,13 @@ public class Main implements IXposedHookLoadPackage {
                 }
             });
 
+            findAndHookMethod("com.alibaba.lightapp.runtime.LightAppRuntimeReverseInterfaceImpl", lpparam.classLoader, "initSecurityGuard", Context.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) {
+                    param.setResult(null);
+                }
+            });
+
 
         }
     }

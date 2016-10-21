@@ -16,5 +16,5 @@
 #   public *;
 #}
 
--keep class me.veryyoung.dingding.unrecalled.* { *; }
+-keep class me.veryyoung.dingding.luckymoney.* { *; }
 -dontwarn okio.**
