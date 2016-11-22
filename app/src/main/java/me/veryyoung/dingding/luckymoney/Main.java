@@ -1,6 +1,7 @@
 package me.veryyoung.dingding.luckymoney;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.widget.ImageButton;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 import static de.robv.android.xposed.XposedBridge.log;
@@ -33,13 +35,8 @@ public class Main implements IXposedHookLoadPackage {
     @Override
     public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
         if (lpparam.packageName.equals(DINGDING_PACKAGE_NAME)) {
-            if (TextUtils.isEmpty(dingdingVersion)) {
-                Context context = (Context) callMethod(callStaticMethod(findClass("android.app.ActivityThread", null), "currentActivityThread", new Object[0]), "getSystemContext", new Object[0]);
-                String versionName = context.getPackageManager().getPackageInfo(lpparam.packageName, 0).versionName;
-                log("Found dingding version:" + versionName);
-                dingdingVersion = versionName;
-                VersionParam.init(versionName);
-            }
+
+            initVersion(lpparam);
 
             findAndHookMethod(VersionParam.ConversationChangeMaidClassName, lpparam.classLoader, "onLatestMessageChanged", List.class, new XC_MethodHook() {
                 @Override
@@ -95,6 +92,16 @@ public class Main implements IXposedHookLoadPackage {
             });
 
 
+        }
+    }
+
+    private void initVersion(LoadPackageParam lpparam) throws PackageManager.NameNotFoundException {
+        if (TextUtils.isEmpty(dingdingVersion)) {
+            Context context = (Context) callMethod(callStaticMethod(findClass("android.app.ActivityThread", null), "currentActivityThread", new Object[0]), "getSystemContext", new Object[0]);
+            String versionName = context.getPackageManager().getPackageInfo(lpparam.packageName, 0).versionName;
+            log("Found dingding version:" + versionName);
+            dingdingVersion = versionName;
+            VersionParam.init(versionName);
         }
     }
 
