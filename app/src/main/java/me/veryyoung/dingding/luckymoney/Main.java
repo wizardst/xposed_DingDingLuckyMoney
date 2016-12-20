@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import org.json.JSONObject;
 
@@ -11,7 +12,6 @@ import java.util.List;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 import static de.robv.android.xposed.XposedBridge.log;
@@ -50,6 +50,7 @@ public class Main implements IXposedHookLoadPackage {
                         String messageContent = findField(message.getClass().getSuperclass().getSuperclass(), "mMessageContent").get(message).toString();
 
                         JSONObject jsonObject = new JSONObject(messageContent);
+                        log("get message:" + messageContent);
                         int tp = jsonObject.optInt("tp", 0);
                         if (901 == tp || 902 == tp) {
                             String ext = jsonObject.getJSONArray("multi").getJSONObject(0).getString("ext");
@@ -83,6 +84,19 @@ public class Main implements IXposedHookLoadPackage {
                     }
                 }
             });
+
+            findAndHookMethod("com.alibaba.android.dingtalk.redpackets.activities.FestivalRedPacketsPickActivity", lpparam.classLoader, "a", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    if (PreferencesUtils.quickOpen()) {
+                        ImageView imageButton = (ImageView) findFirstFieldByExactType(param.thisObject.getClass(), ImageView.class).get(param.thisObject);
+                        if (imageButton.isClickable()) {
+                            imageButton.performClick();
+                        }
+                    }
+                }
+            });
+
 
             findAndHookMethod("com.alibaba.lightapp.runtime.LightAppRuntimeReverseInterfaceImpl", lpparam.classLoader, "initSecurityGuard", Context.class, new XC_MethodHook() {
                 @Override
