@@ -5,61 +5,69 @@ package me.veryyoung.dingding.luckymoney;
  */
 public class VersionParam {
 
-    public static String ApiEventListenerClass = "alm";
-    public static String ConversationChangeMaidClassName = "avq";
-    public static String ServiceFactoryClass = "dhp";
-    public static String RedPacketsRpcClassName = "agr";
+    public static String ApiEventListener = "amx";
+    public static String ConversationChangeMaid = "axm";
+    public static String ServiceFactory = "dkk";
+    public static String RedPacketsRpc = "ahy";
 
     public static void init(String version) {
         switch (version) {
             case "3.0.0":
-                ApiEventListenerClass = "afm";
-                ConversationChangeMaidClassName = "anv";
-                ServiceFactoryClass = "cvs";
-                RedPacketsRpcClassName = "abc";
+                ApiEventListener = "afm";
+                ConversationChangeMaid = "anv";
+                ServiceFactory = "cvs";
+                RedPacketsRpc = "abc";
                 break;
             case "3.0.1":
-                ApiEventListenerClass = "afm";
-                ConversationChangeMaidClassName = "anx";
-                ServiceFactoryClass = "cvx";
-                RedPacketsRpcClassName = "abc";
+                ApiEventListener = "afm";
+                ConversationChangeMaid = "anx";
+                ServiceFactory = "cvx";
+                RedPacketsRpc = "abc";
                 break;
             case "3.0.3":
-                ApiEventListenerClass = "afn";
-                ConversationChangeMaidClassName = "any";
-                ServiceFactoryClass = "cwa";
-                RedPacketsRpcClassName = "abd";
+                ApiEventListener = "afn";
+                ConversationChangeMaid = "any";
+                ServiceFactory = "cwa";
+                RedPacketsRpc = "abd";
                 break;
             case "3.1.0":
-                ApiEventListenerClass = "age";
-                ConversationChangeMaidClassName = "aoq";
-                ServiceFactoryClass = "cxg";
-                RedPacketsRpcClassName = "abt";
+                ApiEventListener = "age";
+                ConversationChangeMaid = "aoq";
+                ServiceFactory = "cxg";
+                RedPacketsRpc = "abt";
                 break;
             case "3.1.1":
             case "3.1.2":
-                ApiEventListenerClass = "agi";
-                ConversationChangeMaidClassName = "apg";
-                ServiceFactoryClass = "cxt";
-                RedPacketsRpcClassName = "abx";
+                ApiEventListener = "agi";
+                ConversationChangeMaid = "apg";
+                ServiceFactory = "cxt";
+                RedPacketsRpc = "abx";
                 break;
             case "3.2.0":
-                ApiEventListenerClass = "ajt";
-                ConversationChangeMaidClassName = "asv";
-                ServiceFactoryClass = "dce";
-                RedPacketsRpcClassName = "aff";
+                ApiEventListener = "ajt";
+                ConversationChangeMaid = "asv";
+                ServiceFactory = "dce";
+                RedPacketsRpc = "aff";
                 break;
             case "3.3.0":
-                ApiEventListenerClass = "alm";
-                ConversationChangeMaidClassName = "avq";
-                ServiceFactoryClass = "dhp";
-                RedPacketsRpcClassName = "agr";
+            case "3.3.1":
+                ApiEventListener = "alm";
+                ConversationChangeMaid = "avq";
+                ServiceFactory = "dhp";
+                RedPacketsRpc = "agr";
+                break;
+            case "3.3.3":
+            case "3.3.5":
+                ApiEventListener = "amx";
+                ConversationChangeMaid = "axm";
+                ServiceFactory = "dkk";
+                RedPacketsRpc = "ahy";
                 break;
             default:
-                ApiEventListenerClass = "alm";
-                ConversationChangeMaidClassName = "avq";
-                ServiceFactoryClass = "dhp";
-                RedPacketsRpcClassName = "agr";
+                ApiEventListener = "amx";
+                ConversationChangeMaid = "axm";
+                ServiceFactory = "dkk";
+                RedPacketsRpc = "ahy";
         }
     }
 

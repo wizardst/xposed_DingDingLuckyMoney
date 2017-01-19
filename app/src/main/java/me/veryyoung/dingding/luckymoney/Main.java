@@ -38,7 +38,7 @@ public class Main implements IXposedHookLoadPackage {
 
             initVersion(lpparam);
 
-            findAndHookMethod(VersionParam.ConversationChangeMaidClassName, lpparam.classLoader, "onLatestMessageChanged", List.class, new XC_MethodHook() {
+            findAndHookMethod(VersionParam.ConversationChangeMaid, lpparam.classLoader, "onLatestMessageChanged", List.class, new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     if (!PreferencesUtils.open()) {
@@ -58,10 +58,10 @@ public class Main implements IXposedHookLoadPackage {
                             Long sender = jsonObject.getLong("sid");
                             String clusterId = jsonObject.getString("clusterid");
 
-                            Object redPacketsRpc = callStaticMethod(findClass(VersionParam.RedPacketsRpcClassName, lpparam.classLoader), "a");
-                            Object redPacketsRpc$9 = findConstructorBestMatch(findClass(VersionParam.RedPacketsRpcClassName + "$9", lpparam.classLoader), redPacketsRpc.getClass(), findClass(VersionParam.ApiEventListenerClass, lpparam.classLoader)).newInstance(redPacketsRpc, null);
+                            Object redPacketsRpc = callStaticMethod(findClass(VersionParam.RedPacketsRpc, lpparam.classLoader), "a");
+                            Object redPacketsRpc$9 = findConstructorBestMatch(findClass(VersionParam.RedPacketsRpc + "$9", lpparam.classLoader), redPacketsRpc.getClass(), findClass(VersionParam.ApiEventListener, lpparam.classLoader)).newInstance(redPacketsRpc, null);
 
-                            Object redEnvelopPickIService = callStaticMethod(findClass(VersionParam.ServiceFactoryClass, lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader));
+                            Object redEnvelopPickIService = callStaticMethod(findClass(VersionParam.ServiceFactory, lpparam.classLoader), "a", findClass("com.alibaba.android.dingtalk.redpackets.idl.service.RedEnvelopPickIService", lpparam.classLoader));
 
                             if (PreferencesUtils.delay()) {
                                 sleep(PreferencesUtils.delayTime());
