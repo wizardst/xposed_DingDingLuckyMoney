@@ -51,7 +51,7 @@ public class Main implements IXposedHookLoadPackage {
 
                         JSONObject jsonObject = new JSONObject(messageContent);
                         int tp = jsonObject.optInt("tp", 0);
-                        if (901 == tp || 902 == tp || 905 == tp) {
+                        if (901 == tp || 902 == tp || 905 == tp || 906 == tp) {
                             String ext = jsonObject.getJSONArray("multi").getJSONObject(0).getString("ext");
                             ext = ext.replace("\\", "").replace("\"{", "{").replace("}\"", "}");
                             jsonObject = new JSONObject(ext);
