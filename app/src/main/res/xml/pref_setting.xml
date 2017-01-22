@@ -37,6 +37,9 @@
         <Preference
             android:key="donate_alipay"
             android:title="@string/alipay_donate" />
+        <Preference
+            android:key="donate_wechat"
+            android:title="@string/wechat_donate" />
     </PreferenceCategory>
 
 </PreferenceScreen>

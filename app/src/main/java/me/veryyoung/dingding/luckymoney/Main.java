@@ -34,6 +34,9 @@ public class Main implements IXposedHookLoadPackage {
 
     @Override
     public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
+
+        DonateHook.hook(lpparam);
+
         if (lpparam.packageName.equals(DINGDING_PACKAGE_NAME)) {
 
             initVersion(lpparam);
@@ -106,7 +109,10 @@ public class Main implements IXposedHookLoadPackage {
 
 
         }
+
+
     }
+
 
     private void initVersion(LoadPackageParam lpparam) throws PackageManager.NameNotFoundException {
         if (TextUtils.isEmpty(dingdingVersion)) {

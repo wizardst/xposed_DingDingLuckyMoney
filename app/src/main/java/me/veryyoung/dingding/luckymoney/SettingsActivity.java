@@ -77,6 +77,18 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
 
+            Preference donateWechat = findPreference("donate_wechat");
+            donateWechat.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference pref) {
+                    Intent intent = new Intent();
+                    intent.setClassName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+                    intent.putExtra("donate", true);
+                    startActivity(intent);
+                    return true;
+                }
+            });
+
         }
     }
 }
