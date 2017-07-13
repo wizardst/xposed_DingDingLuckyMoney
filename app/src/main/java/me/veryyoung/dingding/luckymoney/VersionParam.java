@@ -5,10 +5,10 @@ package me.veryyoung.dingding.luckymoney;
  */
 public class VersionParam {
 
-    public static String ApiEventListener = "awm";
-    public static String ConversationChangeMaid = "bky";
-    public static String ServiceFactory = "ehb";
-    public static String RedPacketsRpc = "aqi";
+    public static String ApiEventListener = "bfe";
+    public static String ConversationChangeMaid = "buk";
+    public static String ServiceFactory = "eyl";
+    public static String RedPacketsRpc = "ayt";
 
     public static void init(String version) {
         switch (version) {
@@ -93,11 +93,17 @@ public class VersionParam {
                 ServiceFactory = "ehb";
                 RedPacketsRpc = "aqi";
                 break;
+            case "3.5.1":
+                ApiEventListener = "bfe";
+                ConversationChangeMaid = "buk";
+                ServiceFactory = "eyl";
+                RedPacketsRpc = "ayt";
+                break;
             default:
-                ApiEventListener = "awm";
-                ConversationChangeMaid = "bky";
-                ServiceFactory = "ehb";
-                RedPacketsRpc = "aqi";
+                ApiEventListener = "bfe";
+                ConversationChangeMaid = "buk";
+                ServiceFactory = "eyl";
+                RedPacketsRpc = "ayt";
         }
     }
 
