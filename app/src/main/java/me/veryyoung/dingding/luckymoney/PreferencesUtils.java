@@ -34,6 +34,10 @@ public class PreferencesUtils {
         return getInstance().getBoolean("quick_open", false);
     }
 
+    public static boolean preventecall() {
+        return getInstance().getBoolean("prevent_recall", true);
+    }
+
 
 }
 

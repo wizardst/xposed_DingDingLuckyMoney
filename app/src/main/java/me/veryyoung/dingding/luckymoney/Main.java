@@ -41,6 +41,8 @@ public class Main implements IXposedHookLoadPackage {
 
             initVersion(lpparam);
 
+            PreventRecallHook.hook(lpparam);
+
             findAndHookMethod(VersionParam.ConversationChangeMaid, lpparam.classLoader, "onLatestMessageChanged", List.class, new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {

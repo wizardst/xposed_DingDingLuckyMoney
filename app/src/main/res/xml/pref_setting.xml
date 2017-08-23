@@ -25,8 +25,13 @@
             android:defaultValue="true"
             android:key="quick_open"
             android:title="@string/quick_open" />
+    </PreferenceCategory>
 
-
+    <PreferenceCategory android:title="@string/others">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="prevent_recall"
+            android:title="@string/prevent_recall" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/about">
