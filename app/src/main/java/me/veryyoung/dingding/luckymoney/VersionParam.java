@@ -109,6 +109,7 @@ public class VersionParam {
                 MessageDs = "ekb";
                 break;
             case "3.5.2":
+            case "3.5.2.20":
                 ApiEventListener = "biu";
                 ConversationChangeMaid = "byf";
                 ServiceFactory = "ezn";
