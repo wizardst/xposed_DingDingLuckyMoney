@@ -131,6 +131,7 @@ public class VersionParam {
                 MessageDs = "erf";
                 break;
             case "4.0.0":
+            case "4.0.1":
                 ApiEventListener = "bon";
                 ConversationChangeMaid = "cfl";
                 ServiceFactory = "fkd";
