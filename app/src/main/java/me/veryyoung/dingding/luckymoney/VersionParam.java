@@ -132,6 +132,7 @@ public class VersionParam {
                 break;
             case "4.0.0":
             case "4.0.1":
+            case "4.0.2":
                 ApiEventListener = "bon";
                 ConversationChangeMaid = "cfl";
                 ServiceFactory = "fkd";
