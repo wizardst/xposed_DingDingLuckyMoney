@@ -14,6 +14,7 @@ import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.newInstance;
+import static me.veryyoung.dingding.luckymoney.PreferencesUtils.preventRecall;
 import static me.veryyoung.dingding.luckymoney.VersionParam.MessageDs;
 
 /**
@@ -33,6 +34,9 @@ public class PreventRecallHook {
         findAndHookMethod(MESSAGE_CLASS_NAME, lpparam.classLoader, "recallStatus", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (preventRecall()) {
+                    return;
+                }
                 // if msg is already recalled and RECALLED msg is stored in local DB,
                 // then let it shown as usual
                 if (RECALLED_MSG_TEXT.equalsIgnoreCase(getMsgText(param.thisObject))) {
@@ -47,6 +51,9 @@ public class PreventRecallHook {
         findAndHookMethod(MessageDs, lpparam.classLoader, "b", String.class, Collection.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                if (preventRecall()) {
+                    return;
+                }
                 final Class<?> messageDS = findClass(MessageDs, lpparam.classLoader);
                 final String dbName = (String) callStaticMethod(messageDS, "getReadableDatabase");
 
