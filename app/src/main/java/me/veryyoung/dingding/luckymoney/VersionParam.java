@@ -140,6 +140,7 @@ public class VersionParam {
                 MessageDs = "ewd";
                 break;
             case "4.1.0":
+            case "4.1.5":
                 ApiEventListener = "bsv";
                 ConversationChangeMaid = "ckf";
                 ServiceFactory = "fou";
