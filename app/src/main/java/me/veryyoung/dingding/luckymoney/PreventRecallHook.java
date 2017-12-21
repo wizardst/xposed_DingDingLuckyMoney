@@ -34,7 +34,7 @@ public class PreventRecallHook {
         findAndHookMethod(MESSAGE_CLASS_NAME, lpparam.classLoader, "recallStatus", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if (preventRecall()) {
+                if (!preventRecall()) {
                     return;
                 }
                 // if msg is already recalled and RECALLED msg is stored in local DB,
@@ -51,7 +51,7 @@ public class PreventRecallHook {
         findAndHookMethod(MessageDs, lpparam.classLoader, "b", String.class, Collection.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                if (preventRecall()) {
+                if (!preventRecall()) {
                     return;
                 }
                 final Class<?> messageDS = findClass(MessageDs, lpparam.classLoader);
