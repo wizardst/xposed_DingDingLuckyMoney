@@ -148,6 +148,7 @@ public class VersionParam {
                 MessageDs = "fcu";
                 break;
             case "4.2.0":
+            case "4.2.1":
                 ApiEventListener = "bkf";
                 ConversationChangeMaid = "cbj";
                 ServiceFactory = "ftg";
