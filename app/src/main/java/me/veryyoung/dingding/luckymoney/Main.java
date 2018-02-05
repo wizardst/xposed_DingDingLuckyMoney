@@ -93,7 +93,7 @@ public class Main implements IXposedHookLoadPackage {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     if (PreferencesUtils.quickOpen()) {
-                        ImageView imageButton = (ImageView) findFirstFieldByExactType(param.thisObject.getClass(), ImageView.class).get(param.thisObject);
+                        ImageView imageButton = (ImageView) findField(param.thisObject.getClass(), "k").get(param.thisObject);
                         if (imageButton.isClickable()) {
                             imageButton.performClick();
                         }
