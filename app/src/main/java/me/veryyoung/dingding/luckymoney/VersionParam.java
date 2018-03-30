@@ -7,9 +7,9 @@ public class VersionParam {
 
     public static String ApiEventListener = "bve";
     public static String ConversationChangeMaid = "cns";
-    public static String ServiceFactory = "gtx";
+    public static String ServiceFactory = "gse";
     public static String RedPacketsRpc = "bnf";
-    public static String MessageDs = "gbf";
+    public static String MessageDs = "fzm";
 
     public static void init(String version) {
         switch (version) {
@@ -186,16 +186,16 @@ public class VersionParam {
             case "4.3.2":
                 ApiEventListener = "bve";
                 ConversationChangeMaid = "cns";
-                ServiceFactory = "gtx";
+                ServiceFactory = "gse";
                 RedPacketsRpc = "bnf";
-                MessageDs = "gbf";
+                MessageDs = "fzm";
                 break;
             default:
                 ApiEventListener = "bve";
                 ConversationChangeMaid = "cns";
-                ServiceFactory = "gtx";
+                ServiceFactory = "gse";
                 RedPacketsRpc = "bnf";
-                MessageDs = "gbf";
+                MessageDs = "fzm";
         }
     }
 
