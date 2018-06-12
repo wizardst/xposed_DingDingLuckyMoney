@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -22,6 +22,7 @@ import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findConstructorBestMatch;
 import static de.robv.android.xposed.XposedHelpers.findField;
 import static de.robv.android.xposed.XposedHelpers.findFirstFieldByExactType;
+import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static java.lang.Thread.sleep;
 
 
@@ -93,7 +94,7 @@ public class Main implements IXposedHookLoadPackage {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     if (PreferencesUtils.quickOpen()) {
-                        ImageView imageButton = (ImageView) findField(param.thisObject.getClass(), "k").get(param.thisObject);
+                        TextView imageButton = (TextView) getObjectField(param.thisObject, "k");
                         if (imageButton.isClickable()) {
                             imageButton.performClick();
                         }
